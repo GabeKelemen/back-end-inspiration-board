@@ -1,6 +1,13 @@
 from app import db
 from .card import Card
 
+sort_columns = {
+    "message-asc": (Card.message, Card.id),
+    "message-desc": (Card.message.desc(), Card.id),
+    "likes-asc": (Card.like_count, Card.id),
+    "likes-desc": (Card.like_count.desc(), Card.id),
+}
+
 class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String, nullable=False)
@@ -14,8 +21,10 @@ class Board(db.Model):
             owner=self.owner,
         )
 
-    def cards_sorted(self):
-        return self.cards.order_by(Card.id)
+    def cards_sorted(self, sort_by):
+        sort_column = sort_columns.get(sort_by, (Card.id,))
+
+        return self.cards.order_by(*sort_column)
 
     @classmethod
     def all(cls):

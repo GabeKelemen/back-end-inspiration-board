@@ -57,7 +57,8 @@ def create_board():
 @bp.route("/<board_id>/cards", methods=("GET",))
 @require_board
 def get_board_cards(board):
-    return jsonify([card.to_dict() for card in board.cards_sorted()]), 200
+    sort_by = request.args.get('sort')
+    return jsonify([card.to_dict() for card in board.cards_sorted(sort_by)]), 200
 
 @bp.route("/<board_id>/cards", methods=("POST",))
 @require_board
