@@ -41,6 +41,8 @@ def load():
     for i, title in enumerate(titles):
         owner = owners[i]
 
+        title = f"{title.title()} Board"
+
         b = Board(title=title, owner=owner)
 
         db.session.add(b)
