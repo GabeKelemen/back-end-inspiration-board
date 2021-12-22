@@ -45,3 +45,22 @@ This file lists the dependencies we anticipate are needed for the project.
 This file already has the contents needed for a Heroku deployment.
 
 If the `create_app` function in `app/__init__.py` is renamed or moved, the contents of this file need to change. Otherwise, we don't anticipate this file to change.
+
+## `.env`
+
+Ensure that the `.env` file is configured with the proper values:
+
+```
+SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@localhost:5432/inspiration_board_dev
+SQLALCHEMY_DATABASE_URI_TEST=postgresql+psycopg2://postgres:postgres@localhost:5432/inspiration_board_test
+```
+
+## Seeding
+
+This project has a script to add some seed data to the database. The following steps can be followed to setup the seed data.
+
+1. (optional) Delete the existing database
+   - `dropdb inspiration_board_dev`
+2. `createdb -U postgres inspiration_board_dev`
+3. `flask db upgrade`
+4. `python seed_data.py`
