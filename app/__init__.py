@@ -4,7 +4,9 @@ from flask_migrate import Migrate
 import os
 from flask_cors import CORS
 from app.errors.handlers import BadRequest, NotFound
+from dotenv import load_dotenv
 
+load_dotenv()
 db = SQLAlchemy()
 migrate = Migrate()
 
